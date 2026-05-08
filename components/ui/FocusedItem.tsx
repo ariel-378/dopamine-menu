@@ -16,7 +16,7 @@ export function FocusedItem({ item, onDone, onSkip, onClose }: Props) {
       style={{
         position: 'fixed',
         inset: 0,
-        background: 'rgba(26, 18, 22, 0.94)',
+        background: 'linear-gradient(135deg, rgba(253, 246, 232, 0.98) 0%, rgba(248, 220, 230, 0.98) 100%)',
         zIndex: 50,
         display: 'flex',
         flexDirection: 'column',

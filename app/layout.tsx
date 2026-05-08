@@ -1,24 +1,25 @@
 import type { Metadata, Viewport } from 'next';
-import { Cardo, Italiana, Special_Elite } from 'next/font/google';
+import { Cormorant_Garamond, Forum, Lora } from 'next/font/google';
 import './globals.css';
 
-const italiana = Italiana({
-  variable: '--font-italiana',
+const cormorant = Cormorant_Garamond({
+  variable: '--font-cormorant',
   subsets: ['latin'],
-  weight: '400',
-  display: 'swap',
-});
-
-const cardo = Cardo({
-  variable: '--font-cardo',
-  subsets: ['latin'],
-  weight: ['400', '700'],
+  weight: ['300', '400', '500', '600'],
   style: ['normal', 'italic'],
   display: 'swap',
 });
 
-const specialElite = Special_Elite({
-  variable: '--font-special-elite',
+const lora = Lora({
+  variable: '--font-lora',
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+});
+
+const forum = Forum({
+  variable: '--font-forum',
   subsets: ['latin'],
   weight: '400',
   display: 'swap',
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
   applicationName: 'Dopamine Menu',
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'black-translucent',
+    statusBarStyle: 'default',
     title: 'Menu',
   },
   manifest: '/manifest.webmanifest',
@@ -40,7 +41,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
-  themeColor: '#1A1216',
+  themeColor: '#FDF6E8',
 };
 
 export default function RootLayout({
@@ -51,7 +52,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${italiana.variable} ${cardo.variable} ${specialElite.variable}`}
+      className={`${cormorant.variable} ${lora.variable} ${forum.variable}`}
     >
       <body>{children}</body>
     </html>

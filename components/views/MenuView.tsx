@@ -183,7 +183,7 @@ export function MenuView({
             gap: '8px',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'rgba(184, 145, 73, 0.08)';
+            e.currentTarget.style.background = 'rgba(194, 101, 119, 0.12)';
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.background = 'transparent';

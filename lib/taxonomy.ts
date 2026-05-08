@@ -20,12 +20,12 @@ export interface CategoryInfo {
 }
 
 export const CATEGORIES: Record<CategoryKey, CategoryInfo> = {
-  movement: { label: 'movement', Icon: Wind,     color: '#7BA88E' },
-  creative: { label: 'creative', Icon: Pencil,   color: '#E07856' },
-  social:   { label: 'social',   Icon: Users,    color: '#D4A24C' },
-  hands:    { label: 'hands',    Icon: Hammer,   color: '#B89368' },
-  reading:  { label: 'reading',  Icon: BookOpen, color: '#9B7B9E' },
-  rest:     { label: 'rest',     Icon: Heart,    color: '#8FA9B8' },
+  movement: { label: 'movement', Icon: Wind,     color: '#5CA86F' },  // leaf
+  creative: { label: 'creative', Icon: Pencil,   color: '#F47E5C' },  // spring coral
+  social:   { label: 'social',   Icon: Users,    color: '#E8B228' },  // marigold
+  hands:    { label: 'hands',    Icon: Hammer,   color: '#C97B5A' },  // terracotta
+  reading:  { label: 'reading',  Icon: BookOpen, color: '#A77FCF' },  // lilac
+  rest:     { label: 'rest',     Icon: Heart,    color: '#6BB8E8' },  // sky
 };
 
 export interface TierInfo {

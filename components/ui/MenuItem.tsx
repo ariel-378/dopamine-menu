@@ -24,7 +24,7 @@ export function MenuItem({ item, index, onClick }: Props) {
         transition: 'background 200ms',
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.background = 'rgba(240, 230, 210, 0.04)';
+        e.currentTarget.style.background = 'rgba(45, 36, 24, 0.04)';
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.background = 'transparent';

@@ -25,3 +25,10 @@ export interface LogEntry {
   text: string;
   at: string;
 }
+
+export interface InspoBoard {
+  id: string;
+  url: string;
+  label?: string;
+  addedAt: string;
+}
