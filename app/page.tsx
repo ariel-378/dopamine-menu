@@ -4,19 +4,15 @@ import { useEffect, useState } from 'react';
 import { BottomNav, type TabId } from '@/components/ui/BottomNav';
 import { FocusedItem } from '@/components/ui/FocusedItem';
 import { EditorView } from '@/components/views/EditorView';
-import { InspoView } from '@/components/views/InspoView';
 import { LogView } from '@/components/views/LogView';
 import { MenuView } from '@/components/views/MenuView';
 import { SEED_ITEMS } from '@/lib/items';
 import { get as storageGet, set as storageSet } from '@/lib/storage';
-import type { InspoBoard, Item, LogEntry, Mode, Tier } from '@/lib/types';
+import type { Item, LogEntry, Mode, Tier } from '@/lib/types';
 import { detectMode, makeId } from '@/lib/util';
 
 const KEY_ITEMS = 'menu:items';
 const KEY_LOG = 'menu:log';
-const KEY_INSPO_BOARDS = 'menu:inspoBoards';
-const KEY_INSPO_CURRENT = 'menu:inspoCurrent';
-const KEY_LEGACY_INSPO_URL = 'menu:inspoUrl';
 
 function seedWithIds(): Item[] {
   return SEED_ITEMS.map((i) => ({ ...i, id: makeId() }));
@@ -34,8 +30,6 @@ export default function Page() {
     tier: null,
     mode: null,
   });
-  const [inspoBoards, setInspoBoardsState] = useState<InspoBoard[]>([]);
-  const [currentInspoId, setCurrentInspoIdState] = useState<string | null>(null);
 
   useEffect(() => {
     /* eslint-disable react-hooks/set-state-in-effect */
@@ -48,29 +42,6 @@ export default function Page() {
       storageSet(KEY_ITEMS, seeded);
     }
     setLog(storageGet<LogEntry[]>(KEY_LOG, []));
-
-    // Migrate legacy single-URL store, if present, to the new collection.
-    let boards = storageGet<InspoBoard[]>(KEY_INSPO_BOARDS, []);
-    const legacyUrl = storageGet<string>(KEY_LEGACY_INSPO_URL, '');
-    if (boards.length === 0 && legacyUrl) {
-      boards = [
-        {
-          id: makeId(),
-          url: legacyUrl,
-          addedAt: new Date().toISOString(),
-        },
-      ];
-      storageSet(KEY_INSPO_BOARDS, boards);
-    }
-    setInspoBoardsState(boards);
-
-    const storedCurrent = storageGet<string | null>(KEY_INSPO_CURRENT, null);
-    const validCurrent =
-      storedCurrent && boards.some((b) => b.id === storedCurrent)
-        ? storedCurrent
-        : boards[0]?.id ?? null;
-    setCurrentInspoIdState(validCurrent);
-
     setMode(detectMode());
     setLoaded(true);
     /* eslint-enable react-hooks/set-state-in-effect */
@@ -79,52 +50,6 @@ export default function Page() {
   const persistItems = (next: Item[]) => {
     setItems(next);
     storageSet(KEY_ITEMS, next);
-  };
-
-  const persistBoards = (next: InspoBoard[]) => {
-    setInspoBoardsState(next);
-    storageSet(KEY_INSPO_BOARDS, next);
-  };
-
-  const persistCurrent = (id: string | null) => {
-    setCurrentInspoIdState(id);
-    storageSet(KEY_INSPO_CURRENT, id);
-  };
-
-  const addInspoBoard = (data: { url: string; label?: string }) => {
-    const board: InspoBoard = {
-      id: makeId(),
-      url: data.url,
-      label: data.label?.trim() || undefined,
-      addedAt: new Date().toISOString(),
-    };
-    persistBoards([...inspoBoards, board]);
-    persistCurrent(board.id);
-  };
-
-  const updateInspoBoard = (id: string, patch: { url?: string; label?: string }) => {
-    persistBoards(
-      inspoBoards.map((b) =>
-        b.id === id
-          ? {
-              ...b,
-              url: patch.url ?? b.url,
-              label:
-                patch.label === undefined
-                  ? b.label
-                  : patch.label.trim() || undefined,
-            }
-          : b
-      )
-    );
-  };
-
-  const deleteInspoBoard = (id: string) => {
-    const next = inspoBoards.filter((b) => b.id !== id);
-    persistBoards(next);
-    if (currentInspoId === id) {
-      persistCurrent(next[0]?.id ?? null);
-    }
   };
 
   const addItem = (data: Omit<Item, 'id'>) => {
@@ -248,16 +173,6 @@ export default function Page() {
                   onPick={onPick}
                   onSurprise={onSurprise}
                   goToEdit={goToEdit}
-                />
-              )}
-              {tab === 'inspo' && (
-                <InspoView
-                  boards={inspoBoards}
-                  currentId={currentInspoId}
-                  setCurrentId={persistCurrent}
-                  addBoard={addInspoBoard}
-                  updateBoard={updateInspoBoard}
-                  deleteBoard={deleteInspoBoard}
                 />
               )}
               {tab === 'log' && <LogView log={log} items={items} />}

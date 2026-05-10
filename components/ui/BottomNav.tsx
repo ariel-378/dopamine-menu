@@ -1,6 +1,6 @@
 'use client';
 
-export type TabId = 'menu' | 'inspo' | 'log' | 'edit';
+export type TabId = 'menu' | 'log' | 'edit';
 
 interface Props {
   tab: TabId;
@@ -8,10 +8,9 @@ interface Props {
 }
 
 const TABS: { id: TabId; label: string }[] = [
-  { id: 'menu',  label: 'Menu' },
-  { id: 'inspo', label: 'Inspo' },
-  { id: 'log',   label: 'Ledger' },
-  { id: 'edit',  label: 'Edit' },
+  { id: 'menu', label: 'Menu' },
+  { id: 'log',  label: 'Ledger' },
+  { id: 'edit', label: 'Edit' },
 ];
 
 export function BottomNav({ tab, setTab }: Props) {
