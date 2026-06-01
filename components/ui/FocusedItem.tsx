@@ -1,6 +1,7 @@
 'use client';
 
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Heart } from 'lucide-react';
+import { pointsForTier } from '@/lib/taxonomy';
 import type { Item } from '@/lib/types';
 
 interface Props {
@@ -16,32 +17,30 @@ export function FocusedItem({ item, onDone, onSkip, onClose }: Props) {
       style={{
         position: 'fixed',
         inset: 0,
-        background: 'linear-gradient(135deg, rgba(253, 246, 232, 0.98) 0%, rgba(248, 220, 230, 0.98) 100%)',
+        background: 'linear-gradient(160deg, rgba(255, 227, 241, 0.98) 0%, rgba(214, 240, 226, 0.98) 100%)',
         zIndex: 50,
         display: 'flex',
         flexDirection: 'column',
         padding: '32px 24px',
-        animation: 'fadeIn 300ms ease',
+        animation: 'fadeIn 250ms ease',
       }}
     >
       <button
+        className="pill"
         onClick={onClose}
         style={{
           alignSelf: 'flex-start',
-          background: 'transparent',
-          border: 'none',
+          background: 'var(--panel)',
           color: 'var(--cream-soft)',
-          cursor: 'pointer',
-          fontFamily: 'var(--type)',
-          fontSize: '11px',
-          letterSpacing: '0.1em',
-          padding: '8px 12px 8px 0',
+          fontSize: '12px',
+          fontWeight: 600,
+          padding: '8px 14px',
           display: 'flex',
           alignItems: 'center',
           gap: '6px',
         }}
       >
-        <ArrowLeft size={14} /> back to menu
+        <ArrowLeft size={14} strokeWidth={2.6} /> back to menu
       </button>
 
       <div
@@ -54,47 +53,80 @@ export function FocusedItem({ item, onDone, onSkip, onClose }: Props) {
           textAlign: 'center',
           maxWidth: '440px',
           margin: '0 auto',
+          width: '100%',
         }}
       >
         <div
+          className="pop-in cozy-card"
           style={{
-            fontFamily: 'var(--type)',
-            fontSize: '11px',
-            color: 'var(--brass)',
-            letterSpacing: '0.2em',
-            textTransform: 'uppercase',
-            marginBottom: '24px',
+            width: '100%',
+            padding: '32px 24px',
+            marginBottom: '28px',
           }}
         >
-          tonight&apos;s recommendation
-        </div>
-        <h1
-          style={{
-            fontFamily: 'var(--display)',
-            fontSize: 'clamp(36px, 8vw, 56px)',
-            fontWeight: 400,
-            color: 'var(--cream)',
-            lineHeight: '1.1',
-            letterSpacing: '-0.01em',
-            margin: '0 0 16px',
-          }}
-        >
-          {item.text}
-        </h1>
-        {item.desc && (
-          <p
+          <div
             style={{
-              fontFamily: 'var(--body)',
-              fontStyle: 'italic',
-              fontSize: '17px',
-              color: 'var(--cream-soft)',
-              lineHeight: '1.5',
-              margin: '0 0 40px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '5px 14px',
+              background: 'var(--ink-deep)',
+              borderRadius: '999px',
+              fontFamily: 'var(--type)',
+              fontSize: '11px',
+              fontWeight: 700,
+              color: 'var(--brass-deep)',
+              marginBottom: '18px',
             }}
           >
-            {item.desc}
-          </p>
-        )}
+            <span className="heartbeat">♥</span> your quest
+          </div>
+          <h1
+            style={{
+              fontFamily: 'var(--display)',
+              fontSize: 'clamp(32px, 7vw, 48px)',
+              fontWeight: 700,
+              color: 'var(--cream)',
+              lineHeight: '1.12',
+              letterSpacing: '-0.01em',
+              margin: 0,
+            }}
+          >
+            {item.text}
+          </h1>
+          {item.desc && (
+            <p
+              style={{
+                fontFamily: 'var(--body)',
+                fontSize: '16px',
+                fontWeight: 500,
+                color: 'var(--cream-soft)',
+                lineHeight: '1.5',
+                margin: '14px 0 0',
+              }}
+            >
+              {item.desc}
+            </p>
+          )}
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              marginTop: '18px',
+              padding: '7px 16px',
+              background: 'var(--brass)',
+              borderRadius: '999px',
+              fontFamily: 'var(--type)',
+              fontSize: '14px',
+              fontWeight: 700,
+              color: '#fff',
+            }}
+          >
+            <Heart size={14} fill="#fff" color="#fff" strokeWidth={2.4} />
+            earn {pointsForTier(item.tier)} hearts
+          </div>
+        </div>
 
         <div
           style={{
@@ -106,39 +138,32 @@ export function FocusedItem({ item, onDone, onSkip, onClose }: Props) {
           }}
         >
           <button
+            className="game-btn"
             onClick={() => onDone(item)}
             style={{
-              padding: '14px 24px',
-              fontFamily: 'var(--type)',
-              fontSize: '12px',
-              letterSpacing: '0.15em',
-              textTransform: 'uppercase',
-              background: 'var(--brass)',
-              color: 'var(--ink)',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              fontWeight: 500,
+              padding: '16px 24px',
+              fontSize: '15px',
+              fontWeight: 700,
+              background: 'var(--mint)',
+              color: '#fff',
+              ['--btn-lip' as string]: '#4FA77B',
             }}
           >
-            i&apos;m doing it →
+            let&apos;s do it! →
           </button>
           <button
+            className="game-btn"
             onClick={onSkip}
             style={{
-              padding: '12px 24px',
-              fontFamily: 'var(--type)',
-              fontSize: '11px',
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              background: 'transparent',
+              padding: '13px 24px',
+              fontSize: '13px',
+              fontWeight: 600,
+              background: 'var(--panel)',
               color: 'var(--cream-soft)',
-              border: '0.5px solid var(--cream-soft)',
-              borderRadius: '4px',
-              cursor: 'pointer',
+              ['--btn-lip' as string]: 'var(--lip)',
             }}
           >
-            give me another
+            give me another ♺
           </button>
         </div>
       </div>

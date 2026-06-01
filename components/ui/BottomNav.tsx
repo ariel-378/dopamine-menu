@@ -1,16 +1,19 @@
 'use client';
 
-export type TabId = 'menu' | 'log' | 'edit';
+import { Gift, Heart, Pencil, UtensilsCrossed, type LucideIcon } from 'lucide-react';
+
+export type TabId = 'menu' | 'log' | 'shop' | 'edit';
 
 interface Props {
   tab: TabId;
   setTab: (id: TabId) => void;
 }
 
-const TABS: { id: TabId; label: string }[] = [
-  { id: 'menu', label: 'Menu' },
-  { id: 'log',  label: 'Ledger' },
-  { id: 'edit', label: 'Edit' },
+const TABS: { id: TabId; label: string; Icon: LucideIcon }[] = [
+  { id: 'menu', label: 'menu',   Icon: UtensilsCrossed },
+  { id: 'log',  label: 'wins',   Icon: Heart },
+  { id: 'shop', label: 'shop',   Icon: Gift },
+  { id: 'edit', label: 'edit',   Icon: Pencil },
 ];
 
 export function BottomNav({ tab, setTab }: Props) {
@@ -18,35 +21,48 @@ export function BottomNav({ tab, setTab }: Props) {
     <div
       style={{
         position: 'sticky',
-        bottom: 0,
-        marginTop: '40px',
-        background: 'var(--ink)',
-        borderTop: '0.5px solid var(--rule)',
+        bottom: '14px',
+        marginTop: '36px',
+        marginBottom: '14px',
         display: 'flex',
-        padding: '4px',
+        gap: '6px',
+        padding: '7px',
+        background: 'var(--panel)',
+        border: '2.5px solid var(--line)',
+        borderRadius: '999px',
+        boxShadow: '0 5px 0 var(--lip), 0 10px 20px rgba(74, 47, 62, 0.14)',
       }}
     >
       {TABS.map((t) => {
         const active = tab === t.id;
+        const { Icon } = t;
         return (
           <button
             key={t.id}
             onClick={() => setTab(t.id)}
             style={{
               flex: 1,
-              padding: '12px',
-              background: 'transparent',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '5px',
+              padding: '11px 5px',
+              background: active ? 'var(--brass)' : 'transparent',
               border: 'none',
+              borderRadius: '999px',
               fontFamily: 'var(--type)',
-              fontSize: '10px',
-              letterSpacing: '0.18em',
-              textTransform: 'uppercase',
-              color: active ? 'var(--brass)' : 'var(--cream-soft)',
+              fontSize: '12px',
+              fontWeight: active ? 600 : 500,
+              letterSpacing: '0.01em',
+              color: active ? '#fff' : 'var(--cream-soft)',
               cursor: 'pointer',
-              fontWeight: active ? 500 : 400,
+              transition: 'all 160ms cubic-bezier(0.34, 1.56, 0.64, 1)',
+              transform: active ? 'scale(1.04)' : 'scale(1)',
+              boxShadow: active ? '0 3px 0 var(--brass-deep)' : 'none',
             }}
           >
-            {t.label.toLowerCase()}
+            <Icon size={15} strokeWidth={2.6} />
+            {t.label}
           </button>
         );
       })}

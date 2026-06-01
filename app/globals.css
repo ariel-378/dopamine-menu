@@ -1,26 +1,36 @@
 @import "tailwindcss";
 
 :root {
-  /* Surfaces — pale spring cream */
-  --ink: #FDF6E8;
-  --ink-deep: #FAEED5;
+  /* Surfaces — soft strawberry-milk cream */
+  --ink: #FFF1F8;
+  --ink-deep: #FFE3F1;
   --panel: #FFFFFF;
 
-  /* Type — deep warm brown */
-  --cream: #2A2422;
-  --cream-soft: rgba(42, 36, 34, 0.6);
+  /* Type — deep cozy plum-brown */
+  --cream: #4A2F3E;
+  --cream-soft: rgba(74, 47, 62, 0.58);
 
-  /* Accent — rose madder, soft + readable on cream */
-  --brass: #C26577;
-  --brass-deep: #A04F60;
+  /* Accent — bubblegum pink (matches the favicon) */
+  --brass: #EC5C9D;
+  --brass-deep: #D63F84;
+  --brass-shadow: #E59CC2;
 
-  /* Rules — soft dark on light */
-  --rule: rgba(42, 36, 34, 0.10);
-  --rule-strong: rgba(42, 36, 34, 0.22);
+  /* Friendly party palette */
+  --mint: #6FC79A;
+  --sky: #6FB8E8;
+  --butter: #F4C95D;
+  --lavender: #B79BE0;
+  --coral: #F58A6B;
 
-  --display: var(--font-cormorant), Georgia, serif;
-  --body: var(--font-lora), Georgia, serif;
-  --type: var(--font-forum), Georgia, serif;
+  /* Rules + chunky button lips */
+  --rule: rgba(74, 47, 62, 0.10);
+  --rule-strong: rgba(74, 47, 62, 0.20);
+  --line: #4A2F3E;
+  --lip: #E7A7C6;
+
+  --display: var(--font-fredoka), "Trebuchet MS", sans-serif;
+  --body: var(--font-nunito), "Trebuchet MS", sans-serif;
+  --type: var(--font-fredoka), "Trebuchet MS", sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -34,28 +44,103 @@ html, body {
 body {
   background-color: var(--ink);
   background-image:
-    radial-gradient(at 18% 12%, rgba(245, 165, 190, 0.38) 0%, transparent 45%),
-    radial-gradient(at 82% 86%, rgba(140, 200, 145, 0.32) 0%, transparent 50%),
-    radial-gradient(at 92% 10%, rgba(165, 200, 235, 0.30) 0%, transparent 42%),
-    radial-gradient(at 8% 88%, rgba(238, 200, 100, 0.22) 0%, transparent 50%),
-    radial-gradient(at 50% 50%, rgba(220, 200, 240, 0.20) 0%, transparent 60%);
+    radial-gradient(at 16% 10%, rgba(255, 150, 200, 0.45) 0%, transparent 42%),
+    radial-gradient(at 85% 84%, rgba(140, 215, 175, 0.40) 0%, transparent 46%),
+    radial-gradient(at 92% 12%, rgba(150, 200, 240, 0.38) 0%, transparent 40%),
+    radial-gradient(at 8% 90%, rgba(245, 205, 120, 0.32) 0%, transparent 46%),
+    radial-gradient(at 50% 48%, rgba(225, 180, 235, 0.26) 0%, transparent 60%);
   background-attachment: fixed;
 }
 
-button { font-family: var(--type); }
-input::placeholder { color: rgba(42, 36, 34, 0.35); }
+button { font-family: var(--type); -webkit-tap-highlight-color: transparent; }
+input::placeholder { color: rgba(74, 47, 62, 0.38); }
+
+/* ── Cute building blocks ───────────────────────────────── */
+
+/* A rounded candy bubble panel */
+.cozy-card {
+  background: var(--panel);
+  border: 2.5px solid var(--line);
+  border-radius: 22px;
+  box-shadow: 0 5px 0 var(--lip), 0 10px 18px rgba(74, 47, 62, 0.10);
+}
+
+/* Chunky pressable game button: a solid bottom "lip" that squishes on press */
+.game-btn {
+  border: 2.5px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 5px 0 0 var(--btn-lip, var(--brass-deep));
+  transition: transform 70ms ease, box-shadow 70ms ease, filter 120ms ease;
+  cursor: pointer;
+  font-family: var(--type);
+}
+.game-btn:hover { filter: brightness(1.04); }
+.game-btn:active {
+  transform: translateY(5px);
+  box-shadow: 0 0 0 0 var(--btn-lip, var(--brass-deep));
+}
+.game-btn:disabled { cursor: not-allowed; filter: grayscale(0.4) opacity(0.7); }
+
+/* Soft rounded pill chip */
+.pill {
+  border-radius: 999px;
+  border: 2px solid var(--line);
+  transition: transform 120ms ease, background 150ms ease, color 150ms ease;
+  cursor: pointer;
+  font-family: var(--type);
+}
+.pill:active { transform: scale(0.94); }
+
+/* ── Animations ─────────────────────────────────────────── */
 
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
 
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
+@keyframes bounceIn {
+  0%   { opacity: 0; transform: translateY(16px) scale(0.96); }
+  60%  { opacity: 1; transform: translateY(-5px) scale(1.01); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-.page-enter {
-  animation: slideUp 350ms cubic-bezier(0.2, 0.8, 0.2, 1);
+@keyframes popIn {
+  0%   { opacity: 0; transform: scale(0.7); }
+  70%  { opacity: 1; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15%      { transform: scale(1.18); }
+  30%      { transform: scale(1); }
+  45%      { transform: scale(1.12); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25%      { transform: rotate(-4deg); }
+  75%      { transform: rotate(4deg); }
+}
+
+.page-enter { animation: bounceIn 420ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+.pop-in     { animation: popIn 360ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+.float      { animation: float 3.2s ease-in-out infinite; }
+.heartbeat  { display: inline-block; animation: heartbeat 1.4s ease-in-out infinite; }
+
+/* item rows wiggle their heart on hover */
+.menu-row:hover .menu-heart { animation: wiggle 420ms ease-in-out; }
+
+/* ── Cute scrollbar ─────────────────────────────────────── */
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-thumb {
+  background: var(--brass-shadow);
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--brass); }

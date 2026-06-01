@@ -1,3 +1,4 @@
+import { pointsForTier } from '@/lib/taxonomy';
 import type { Item, LogEntry } from '@/lib/types';
 
 interface Props {
@@ -8,24 +9,25 @@ interface Props {
 export function LogView({ log, items }: Props) {
   if (log.length === 0) {
     return (
-      <div style={{ padding: '60px 20px', textAlign: 'center' }}>
+      <div className="cozy-card" style={{ padding: '48px 28px', textAlign: 'center' }}>
+        <div className="float" style={{ fontSize: '44px', marginBottom: '10px' }}>🌱</div>
         <div
           style={{
             fontFamily: 'var(--display)',
             fontSize: '24px',
+            fontWeight: 700,
             color: 'var(--cream)',
-            fontStyle: 'italic',
             marginBottom: '8px',
           }}
         >
-          a fresh ledger
+          a fresh start!
         </div>
         <div
           style={{
             fontFamily: 'var(--body)',
             fontSize: '14px',
+            fontWeight: 500,
             color: 'var(--cream-soft)',
-            fontStyle: 'italic',
           }}
         >
           things you do off your phone show up here
@@ -55,54 +57,55 @@ export function LogView({ log, items }: Props) {
           fontSize: '36px',
           color: 'var(--cream)',
           margin: '0 0 4px',
-          fontStyle: 'italic',
-          fontWeight: 400,
+          fontWeight: 700,
         }}
       >
-        The Ledger
+        Your Wins
       </h1>
       <div
         style={{
           fontFamily: 'var(--type)',
-          fontSize: '10px',
+          fontSize: '13px',
+          fontWeight: 600,
           color: 'var(--brass)',
-          letterSpacing: '0.2em',
-          textTransform: 'uppercase',
-          marginBottom: '24px',
+          marginBottom: '22px',
         }}
       >
-        what you did instead
+        every little thing counts ♥
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '32px' }}>
-        <div style={{ padding: '14px', border: '0.5px solid var(--rule)', borderRadius: '4px' }}>
-          <div style={{ fontFamily: 'var(--type)', fontSize: '9px', color: 'var(--brass)', letterSpacing: '0.18em', marginBottom: '4px' }}>
-            ALL TIME
+        <div className="cozy-card" style={{ padding: '16px 14px', textAlign: 'center' }}>
+          <div style={{ fontFamily: 'var(--type)', fontSize: '10px', fontWeight: 700, color: 'var(--brass)', letterSpacing: '0.06em', marginBottom: '4px' }}>
+            ⭐ ALL TIME
           </div>
-          <div style={{ fontFamily: 'var(--display)', fontSize: '28px', color: 'var(--cream)' }}>
+          <div style={{ fontFamily: 'var(--display)', fontSize: '34px', fontWeight: 700, color: 'var(--cream)', lineHeight: 1 }}>
             {total}
           </div>
         </div>
-        <div style={{ padding: '14px', border: '0.5px solid var(--rule)', borderRadius: '4px' }}>
-          <div style={{ fontFamily: 'var(--type)', fontSize: '9px', color: 'var(--brass)', letterSpacing: '0.18em', marginBottom: '4px' }}>
-            LAST 7 DAYS
+        <div className="cozy-card" style={{ padding: '16px 14px', textAlign: 'center' }}>
+          <div style={{ fontFamily: 'var(--type)', fontSize: '10px', fontWeight: 700, color: 'var(--mint)', letterSpacing: '0.06em', marginBottom: '4px' }}>
+            🔥 LAST 7 DAYS
           </div>
-          <div style={{ fontFamily: 'var(--display)', fontSize: '28px', color: 'var(--cream)' }}>
+          <div style={{ fontFamily: 'var(--display)', fontSize: '34px', fontWeight: 700, color: 'var(--cream)', lineHeight: 1 }}>
             {last7}
           </div>
         </div>
       </div>
 
       {Object.entries(byDate).map(([date, entries]) => (
-        <div key={date} style={{ marginBottom: '24px' }}>
+        <div key={date} style={{ marginBottom: '20px' }}>
           <div
             style={{
+              display: 'inline-block',
               fontFamily: 'var(--type)',
-              fontSize: '10px',
-              color: 'var(--brass)',
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-              marginBottom: '8px',
+              fontSize: '11px',
+              fontWeight: 700,
+              color: 'var(--brass-deep)',
+              background: 'var(--ink-deep)',
+              padding: '4px 12px',
+              borderRadius: '999px',
+              marginBottom: '10px',
             }}
           >
             {date}
@@ -110,22 +113,43 @@ export function LogView({ log, items }: Props) {
           {entries.map((e, i) => {
             const item = items.find((it) => it.id === e.itemId);
             const time = new Date(e.at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+            const hearts = typeof e.points === 'number' ? e.points : item ? pointsForTier(item.tier) : 0;
             return (
               <div
                 key={i}
                 style={{
                   display: 'flex',
-                  gap: '12px',
-                  padding: '10px 0',
-                  borderTop: '0.5px solid var(--rule)',
-                  alignItems: 'baseline',
+                  gap: '10px',
+                  padding: '11px 14px',
+                  marginBottom: '8px',
+                  background: 'var(--panel)',
+                  border: '2px solid var(--line)',
+                  borderRadius: '14px',
+                  alignItems: 'center',
                 }}
               >
-                <div style={{ fontFamily: 'var(--type)', fontSize: '10px', color: 'var(--cream-soft)', minWidth: '50px' }}>
-                  {time}
-                </div>
-                <div style={{ fontFamily: 'var(--body)', fontSize: '14px', color: 'var(--cream)' }}>
+                <span style={{ color: 'var(--mint)', fontSize: '14px', flexShrink: 0 }}>✓</span>
+                <div style={{ flex: 1, minWidth: 0, fontFamily: 'var(--body)', fontSize: '14px', fontWeight: 600, color: 'var(--cream)' }}>
                   {item?.text || e.text || '(deleted item)'}
+                </div>
+                {hearts > 0 && (
+                  <span
+                    style={{
+                      flexShrink: 0,
+                      padding: '2px 8px',
+                      borderRadius: '999px',
+                      background: 'var(--ink-deep)',
+                      fontFamily: 'var(--type)',
+                      fontSize: '11px',
+                      fontWeight: 700,
+                      color: 'var(--brass-deep)',
+                    }}
+                  >
+                    +{hearts} ♥
+                  </span>
+                )}
+                <div style={{ fontFamily: 'var(--type)', fontSize: '11px', fontWeight: 600, color: 'var(--cream-soft)', flexShrink: 0, minWidth: '46px', textAlign: 'right' }}>
+                  {time}
                 </div>
               </div>
             );

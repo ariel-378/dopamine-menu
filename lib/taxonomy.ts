@@ -33,14 +33,20 @@ export interface TierInfo {
   sub: string;
   shortLabel: string;
   numeral: string;
+  points: number;
 }
 
 export const TIERS: Record<Tier, TierInfo> = {
-  snack:  { label: 'Apéritifs',  sub: '2–5 minutes',    shortLabel: 'snack',  numeral: 'I' },
-  small:  { label: 'Petits',     sub: '10–20 minutes',  shortLabel: 'small',  numeral: 'II' },
-  medium: { label: 'Principaux', sub: '30–60 minutes',  shortLabel: 'medium', numeral: 'III' },
-  feast:  { label: 'Festins',    sub: '1 hour or more', shortLabel: 'feast',  numeral: 'IV' },
+  snack:  { label: 'Apéritifs',  sub: '2–5 minutes',    shortLabel: 'snack',  numeral: 'I',   points: 5 },
+  small:  { label: 'Petits',     sub: '10–20 minutes',  shortLabel: 'small',  numeral: 'II',  points: 10 },
+  medium: { label: 'Principaux', sub: '30–60 minutes',  shortLabel: 'medium', numeral: 'III', points: 25 },
+  feast:  { label: 'Festins',    sub: '1 hour or more', shortLabel: 'feast',  numeral: 'IV',  points: 50 },
 };
+
+/** Hearts earned for completing an item of the given tier. */
+export function pointsForTier(tier: Tier): number {
+  return TIERS[tier]?.points ?? 0;
+}
 
 export interface ModeInfo {
   label: string;

@@ -66,8 +66,7 @@ export function EditorView({
           fontSize: '36px',
           color: 'var(--cream)',
           margin: '0 0 4px',
-          fontStyle: 'italic',
-          fontWeight: 400,
+          fontWeight: 700,
         }}
       >
         Edit the menu
@@ -75,36 +74,26 @@ export function EditorView({
       <div
         style={{
           fontFamily: 'var(--type)',
-          fontSize: '10px',
+          fontSize: '13px',
+          fontWeight: 600,
           color: 'var(--brass)',
-          letterSpacing: '0.2em',
-          textTransform: 'uppercase',
-          marginBottom: '24px',
+          marginBottom: '22px',
         }}
       >
-        make it your own
+        make it your own ♥
       </div>
 
-      <div
-        style={{
-          padding: '16px',
-          border: '0.5px solid var(--rule)',
-          borderRadius: '4px',
-          marginBottom: '32px',
-          background: 'var(--panel)',
-        }}
-      >
+      <div className="cozy-card" style={{ padding: '18px', marginBottom: '32px' }}>
         <div
           style={{
             fontFamily: 'var(--type)',
-            fontSize: '10px',
+            fontSize: '13px',
+            fontWeight: 700,
             color: 'var(--brass)',
-            letterSpacing: '0.18em',
-            marginBottom: '10px',
-            textTransform: 'uppercase',
+            marginBottom: '12px',
           }}
         >
-          New item
+          ✦ new item
         </div>
         <input
           value={text}
@@ -112,15 +101,16 @@ export function EditorView({
           placeholder="What's the activity?"
           style={{
             width: '100%',
-            background: 'transparent',
-            border: 'none',
-            borderBottom: '0.5px solid var(--rule)',
-            padding: '8px 0',
+            background: 'var(--ink)',
+            border: '2px solid var(--line)',
+            borderRadius: '14px',
+            padding: '11px 14px',
             color: 'var(--cream)',
             fontFamily: 'var(--body)',
             fontSize: '15px',
+            fontWeight: 600,
             outline: 'none',
-            marginBottom: '8px',
+            marginBottom: '9px',
           }}
         />
         <input
@@ -129,16 +119,16 @@ export function EditorView({
           placeholder="A short note (optional)"
           style={{
             width: '100%',
-            background: 'transparent',
-            border: 'none',
-            borderBottom: '0.5px solid var(--rule)',
-            padding: '8px 0',
+            background: 'var(--ink)',
+            border: '2px solid var(--line)',
+            borderRadius: '14px',
+            padding: '10px 14px',
             color: 'var(--cream-soft)',
             fontFamily: 'var(--body)',
-            fontStyle: 'italic',
+            fontWeight: 500,
             fontSize: '13px',
             outline: 'none',
-            marginBottom: '12px',
+            marginBottom: '14px',
           }}
         />
 
@@ -146,11 +136,10 @@ export function EditorView({
           <div
             style={{
               fontFamily: 'var(--type)',
-              fontSize: '9px',
-              color: 'var(--cream-soft)',
-              letterSpacing: '0.15em',
-              marginBottom: '6px',
-              textTransform: 'uppercase',
+              fontSize: '11px',
+              fontWeight: 700,
+              color: 'var(--cream)',
+              marginBottom: '7px',
             }}
           >
             Section
@@ -161,17 +150,15 @@ export function EditorView({
               return (
                 <button
                   key={key}
+                  className="pill"
                   onClick={() => setTier(key)}
                   style={{
-                    padding: '4px 10px',
-                    background: active ? 'var(--cream)' : 'transparent',
-                    color: active ? 'var(--ink)' : 'var(--cream-soft)',
-                    border: active ? 'none' : '0.5px solid var(--rule)',
-                    fontFamily: 'var(--type)',
-                    fontSize: '10px',
-                    letterSpacing: '0.05em',
-                    borderRadius: '3px',
-                    cursor: 'pointer',
+                    padding: '6px 13px',
+                    background: active ? 'var(--brass)' : 'var(--ink)',
+                    color: active ? '#fff' : 'var(--cream-soft)',
+                    borderColor: active ? 'var(--brass)' : 'var(--rule-strong)',
+                    fontSize: '12px',
+                    fontWeight: 600,
                   }}
                 >
                   {info.shortLabel}
@@ -185,11 +172,10 @@ export function EditorView({
           <div
             style={{
               fontFamily: 'var(--type)',
-              fontSize: '9px',
-              color: 'var(--cream-soft)',
-              letterSpacing: '0.15em',
-              marginBottom: '6px',
-              textTransform: 'uppercase',
+              fontSize: '11px',
+              fontWeight: 700,
+              color: 'var(--cream)',
+              marginBottom: '7px',
             }}
           >
             Tags
@@ -202,25 +188,23 @@ export function EditorView({
                 return (
                   <button
                     key={key}
+                    className="pill"
                     onClick={() =>
                       setCats(active ? cats.filter((c) => c !== key) : [...cats, key])
                     }
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
-                      gap: '4px',
-                      padding: '4px 8px',
-                      background: active ? info.color : 'transparent',
-                      color: active ? 'var(--ink)' : 'var(--cream-soft)',
-                      border: active ? 'none' : '0.5px solid var(--rule)',
-                      fontFamily: 'var(--type)',
-                      fontSize: '10px',
-                      letterSpacing: '0.05em',
-                      borderRadius: '3px',
-                      cursor: 'pointer',
+                      gap: '5px',
+                      padding: '6px 11px',
+                      background: active ? info.color : 'var(--ink)',
+                      color: active ? '#fff' : 'var(--cream-soft)',
+                      borderColor: active ? info.color : 'var(--rule-strong)',
+                      fontSize: '12px',
+                      fontWeight: 600,
                     }}
                   >
-                    <Icon size={10} />
+                    <Icon size={12} strokeWidth={2.6} />
                     {info.label}
                   </button>
                 );
@@ -233,11 +217,10 @@ export function EditorView({
           <div
             style={{
               fontFamily: 'var(--type)',
-              fontSize: '9px',
-              color: 'var(--cream-soft)',
-              letterSpacing: '0.15em',
-              marginBottom: '6px',
-              textTransform: 'uppercase',
+              fontSize: '11px',
+              fontWeight: 700,
+              color: 'var(--cream)',
+              marginBottom: '7px',
             }}
           >
             When to suggest
@@ -249,23 +232,21 @@ export function EditorView({
               return (
                 <button
                   key={key}
+                  className="pill"
                   onClick={() => toggleMode(key)}
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '4px',
-                    padding: '4px 8px',
-                    background: active ? 'var(--cream)' : 'transparent',
-                    color: active ? 'var(--ink)' : 'var(--cream-soft)',
-                    border: active ? 'none' : '0.5px solid var(--rule)',
-                    fontFamily: 'var(--type)',
-                    fontSize: '10px',
-                    letterSpacing: '0.05em',
-                    borderRadius: '3px',
-                    cursor: 'pointer',
+                    gap: '5px',
+                    padding: '6px 11px',
+                    background: active ? 'var(--lavender)' : 'var(--ink)',
+                    color: active ? '#fff' : 'var(--cream-soft)',
+                    borderColor: active ? 'var(--lavender)' : 'var(--rule-strong)',
+                    fontSize: '12px',
+                    fontWeight: 600,
                   }}
                 >
-                  <Icon size={10} />
+                  <Icon size={12} strokeWidth={2.6} />
                   {info.label.toLowerCase()}
                 </button>
               );
@@ -274,11 +255,11 @@ export function EditorView({
           <div
             style={{
               fontFamily: 'var(--body)',
-              fontStyle: 'italic',
-              fontSize: '11px',
+              fontSize: '12px',
+              fontWeight: 500,
               color: 'var(--cream-soft)',
-              marginTop: '6px',
-              lineHeight: '1.4',
+              marginTop: '8px',
+              lineHeight: '1.45',
             }}
           >
             keep &quot;anytime&quot; on so it always shows in the main menu. add others to also show in those modes.
@@ -286,24 +267,20 @@ export function EditorView({
         </div>
 
         <button
+          className="game-btn"
           onClick={submit}
           disabled={!text.trim()}
           style={{
             width: '100%',
-            padding: '10px',
-            background: text.trim() ? 'var(--brass)' : 'transparent',
-            color: text.trim() ? 'var(--ink)' : 'var(--cream-soft)',
-            border: text.trim() ? 'none' : '0.5px solid var(--rule)',
-            fontFamily: 'var(--type)',
-            fontSize: '11px',
-            letterSpacing: '0.15em',
-            textTransform: 'uppercase',
-            borderRadius: '3px',
-            cursor: text.trim() ? 'pointer' : 'not-allowed',
-            fontWeight: 500,
+            padding: '14px',
+            background: text.trim() ? 'var(--brass)' : 'var(--ink-deep)',
+            color: text.trim() ? '#fff' : 'var(--cream-soft)',
+            ['--btn-lip' as string]: text.trim() ? 'var(--brass-deep)' : 'var(--lip)',
+            fontSize: '14px',
+            fontWeight: 700,
           }}
         >
-          add to menu
+          add to menu ♥
         </button>
       </div>
 
@@ -311,12 +288,15 @@ export function EditorView({
         <div key={tierKey} style={{ marginBottom: '24px' }}>
           <div
             style={{
+              display: 'inline-block',
               fontFamily: 'var(--type)',
-              fontSize: '10px',
-              color: 'var(--brass)',
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-              marginBottom: '8px',
+              fontSize: '12px',
+              fontWeight: 700,
+              color: 'var(--brass-deep)',
+              background: 'var(--ink-deep)',
+              padding: '4px 12px',
+              borderRadius: '999px',
+              marginBottom: '10px',
             }}
           >
             {TIERS[tierKey].label} · {tierItems.length}
@@ -328,20 +308,23 @@ export function EditorView({
                 display: 'flex',
                 gap: '8px',
                 alignItems: 'center',
-                padding: '10px 0',
-                borderTop: '0.5px solid var(--rule)',
+                padding: '11px 14px',
+                marginBottom: '8px',
+                background: 'var(--panel)',
+                border: '2px solid var(--line)',
+                borderRadius: '14px',
               }}
             >
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontFamily: 'var(--body)', fontSize: '14px', color: 'var(--cream)', lineHeight: '1.3' }}>
+                <div style={{ fontFamily: 'var(--body)', fontSize: '14px', fontWeight: 600, color: 'var(--cream)', lineHeight: '1.3' }}>
                   {item.text}
                 </div>
                 {item.desc && (
                   <div
                     style={{
                       fontFamily: 'var(--body)',
-                      fontStyle: 'italic',
                       fontSize: '12px',
+                      fontWeight: 500,
                       color: 'var(--cream-soft)',
                       marginTop: '2px',
                     }}
@@ -353,36 +336,38 @@ export function EditorView({
               <button
                 onClick={() => deleteItem(item.id)}
                 style={{
-                  background: 'transparent',
+                  background: 'var(--ink-deep)',
                   border: 'none',
-                  color: 'var(--cream-soft)',
+                  borderRadius: '999px',
+                  color: 'var(--brass-deep)',
                   cursor: 'pointer',
-                  padding: '4px',
+                  padding: '7px',
+                  display: 'flex',
+                  flexShrink: 0,
                 }}
                 aria-label="Delete item"
               >
-                <Trash2 size={14} />
+                <Trash2 size={14} strokeWidth={2.6} />
               </button>
             </div>
           ))}
         </div>
       ))}
 
-      <div style={{ paddingTop: '16px', borderTop: '0.5px solid var(--rule)' }}>
+      <div style={{ paddingTop: '8px', textAlign: 'center' }}>
         <button
+          className="pill"
           onClick={resetSeed}
           style={{
-            background: 'transparent',
-            border: 'none',
+            background: 'var(--panel)',
             color: 'var(--cream-soft)',
-            fontFamily: 'var(--type)',
-            fontSize: '10px',
-            letterSpacing: '0.15em',
-            cursor: 'pointer',
-            textTransform: 'uppercase',
+            borderColor: 'var(--rule-strong)',
+            fontSize: '12px',
+            fontWeight: 600,
+            padding: '8px 16px',
           }}
         >
-          reset to default menu →
+          ↺ reset to default menu
         </button>
       </div>
     </div>

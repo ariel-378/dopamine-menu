@@ -24,5 +24,22 @@ export interface LogEntry {
   itemId: string;
   text: string;
   at: string;
+  points?: number;
+}
+
+export interface Prize {
+  id: string;
+  emoji: string;
+  name: string;
+  cost: number;
+  custom?: boolean;
+}
+
+export interface Redemption {
+  prizeId: string;
+  name: string;
+  emoji: string;
+  cost: number;
+  at: string;
 }
 

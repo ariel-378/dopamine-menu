@@ -34,32 +34,31 @@ export function MenuView({
   return (
     <>
       <div style={{ marginBottom: '20px' }}>
-        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: '7px', flexWrap: 'wrap', justifyContent: 'center' }}>
           {(Object.entries(MODES) as [Mode, (typeof MODES)[Mode]][]).map(([key, info]) => {
             const active = mode === key;
             const { Icon } = info;
             return (
               <button
                 key={key}
+                className="pill"
                 onClick={() => setMode(key)}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '5px',
-                  padding: '6px 11px',
-                  borderRadius: '999px',
-                  background: active ? 'var(--cream)' : 'transparent',
-                  color: active ? 'var(--ink)' : 'var(--cream-soft)',
-                  border: active ? 'none' : '0.5px solid var(--cream-soft)',
-                  fontFamily: 'var(--type)',
-                  fontSize: '10px',
-                  letterSpacing: '0.08em',
+                  gap: '6px',
+                  padding: '7px 13px',
+                  background: active ? 'var(--brass)' : 'var(--panel)',
+                  color: active ? '#fff' : 'var(--cream-soft)',
+                  borderColor: active ? 'var(--brass)' : 'var(--rule-strong)',
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  letterSpacing: '0.01em',
                   textTransform: 'lowercase',
-                  cursor: 'pointer',
-                  transition: 'all 150ms',
+                  boxShadow: active ? '0 3px 0 var(--brass-deep)' : 'none',
                 }}
               >
-                <Icon size={11} />
+                <Icon size={13} strokeWidth={2.6} />
                 {info.label.toLowerCase()}
               </button>
             );
@@ -71,43 +70,45 @@ export function MenuView({
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: '6px',
+          gap: '8px',
           marginBottom: '24px',
         }}
       >
-        {(Object.entries(TIERS) as [Tier, (typeof TIERS)[Tier]][]).map(([key, info]) => {
+        {(Object.entries(TIERS) as [Tier, (typeof TIERS)[Tier]][]).map(([key, info], i) => {
           const active = tier === key;
+          const dots = '●'.repeat(i + 1);
           return (
             <button
               key={key}
               onClick={() => setTier(key)}
               style={{
-                padding: '10px 4px',
-                background: active ? 'var(--panel)' : 'transparent',
-                border: `0.5px solid ${active ? 'var(--brass)' : 'var(--rule)'}`,
-                borderRadius: '4px',
+                padding: '11px 4px 10px',
+                background: active ? 'var(--brass)' : 'var(--panel)',
+                border: `2.5px solid ${active ? 'var(--brass)' : 'var(--line)'}`,
+                borderRadius: '16px',
                 cursor: 'pointer',
                 textAlign: 'center',
-                transition: 'all 200ms',
+                boxShadow: active ? '0 4px 0 var(--brass-deep)' : '0 4px 0 var(--lip)',
+                transform: active ? 'translateY(-2px)' : 'translateY(0)',
+                transition: 'all 180ms cubic-bezier(0.34, 1.56, 0.64, 1)',
               }}
             >
               <div
                 style={{
-                  fontFamily: 'var(--type)',
-                  fontSize: '10px',
-                  color: active ? 'var(--brass)' : 'var(--cream-soft)',
+                  fontSize: '7px',
+                  color: active ? 'rgba(255,255,255,0.85)' : 'var(--brass-shadow)',
                   letterSpacing: '0.15em',
-                  marginBottom: '2px',
+                  marginBottom: '3px',
                 }}
               >
-                {info.numeral}
+                {dots}
               </div>
               <div
                 style={{
                   fontFamily: 'var(--display)',
                   fontSize: '14px',
-                  color: active ? 'var(--cream)' : 'var(--cream-soft)',
-                  fontStyle: 'italic',
+                  fontWeight: 600,
+                  color: active ? '#fff' : 'var(--cream)',
                   lineHeight: 1,
                 }}
               >
@@ -118,27 +119,15 @@ export function MenuView({
         })}
       </div>
 
-      <div style={{ marginBottom: '12px', textAlign: 'center', position: 'relative' }}>
-        <div
-          style={{
-            fontFamily: 'var(--type)',
-            fontSize: '10px',
-            color: 'var(--brass)',
-            letterSpacing: '0.25em',
-            textTransform: 'uppercase',
-            marginBottom: '4px',
-          }}
-        >
-          {tierInfo.sub}
-        </div>
+      <div style={{ marginBottom: '16px', textAlign: 'center', position: 'relative' }}>
         <h2
           style={{
             fontFamily: 'var(--display)',
-            fontSize: '32px',
-            fontWeight: 400,
+            fontSize: '30px',
+            fontWeight: 700,
             color: 'var(--cream)',
             lineHeight: '1.1',
-            letterSpacing: '0.02em',
+            letterSpacing: '-0.01em',
             margin: 0,
           }}
         >
@@ -146,110 +135,90 @@ export function MenuView({
         </h2>
         <div
           style={{
-            display: 'flex',
+            display: 'inline-flex',
             alignItems: 'center',
-            justifyContent: 'center',
-            gap: '12px',
-            marginTop: '10px',
-            color: 'var(--rule-strong)',
+            gap: '7px',
+            marginTop: '8px',
+            padding: '4px 12px',
+            background: 'var(--ink-deep)',
+            borderRadius: '999px',
+            fontFamily: 'var(--type)',
+            fontSize: '11px',
+            fontWeight: 600,
+            color: 'var(--brass-deep)',
           }}
         >
-          <div style={{ width: '40px', height: '0.5px', background: 'var(--rule-strong)' }} />
-          <div style={{ fontSize: '8px', color: 'var(--brass)', letterSpacing: '0.3em' }}>✦</div>
-          <div style={{ width: '40px', height: '0.5px', background: 'var(--rule-strong)' }} />
+          ⏱ {tierInfo.sub}
         </div>
       </div>
 
       {filtered.length > 0 && (
         <button
+          className="game-btn"
           onClick={() => onSurprise(filtered)}
           style={{
             width: '100%',
-            padding: '14px',
-            background: 'transparent',
-            border: '0.5px dashed var(--brass)',
-            borderRadius: '4px',
-            color: 'var(--brass)',
-            fontFamily: 'var(--type)',
-            fontSize: '11px',
-            letterSpacing: '0.18em',
-            textTransform: 'uppercase',
-            cursor: 'pointer',
-            marginBottom: '20px',
-            transition: 'all 200ms',
+            padding: '16px',
+            background: 'var(--brass)',
+            color: '#fff',
+            fontSize: '15px',
+            fontWeight: 700,
+            letterSpacing: '0.01em',
+            marginBottom: '22px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '8px',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'rgba(194, 101, 119, 0.12)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'transparent';
+            gap: '9px',
           }}
         >
-          <Sparkles size={12} />
-          surprise me
+          <Sparkles size={17} strokeWidth={2.6} />
+          surprise me!
         </button>
       )}
 
       <div>
         {filtered.length === 0 ? (
           <div
+            className="cozy-card"
             style={{
-              padding: '40px 20px',
+              padding: '36px 24px',
               textAlign: 'center',
               fontFamily: 'var(--body)',
-              fontStyle: 'italic',
+              fontWeight: 600,
               color: 'var(--cream-soft)',
               fontSize: '14px',
               lineHeight: '1.5',
             }}
           >
-            nothing on this section yet —<br />
-            add your own from the editor
+            <div className="float" style={{ fontSize: '36px', marginBottom: '8px' }}>🧺</div>
+            nothing here yet —<br />
+            add your own below!
           </div>
         ) : (
-          filtered.map((item, i) => (
-            <MenuItem key={item.id} item={item} index={i} onClick={onPick} />
+          filtered.map((item) => (
+            <MenuItem key={item.id} item={item} onClick={onPick} />
           ))
         )}
-        {filtered.length > 0 && (
-          <div style={{ borderTop: '0.5px solid var(--rule)' }} />
-        )}
-
         <button
+          className="game-btn"
           onClick={() => goToEdit(tier, mode)}
           style={{
             width: '100%',
-            padding: '14px',
-            marginTop: '16px',
-            background: 'transparent',
-            border: '0.5px solid var(--rule)',
-            borderRadius: '4px',
-            color: 'var(--cream-soft)',
-            fontFamily: 'var(--type)',
-            fontSize: '10px',
-            letterSpacing: '0.18em',
-            textTransform: 'uppercase',
-            cursor: 'pointer',
+            padding: '13px',
+            marginTop: '6px',
+            background: 'var(--panel)',
+            color: 'var(--brass)',
+            ['--btn-lip' as string]: 'var(--lip)',
+            fontSize: '13px',
+            fontWeight: 600,
+            letterSpacing: '0.01em',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             gap: '8px',
-            transition: 'all 200ms',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = 'var(--brass)';
-            e.currentTarget.style.color = 'var(--brass)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = 'var(--rule)';
-            e.currentTarget.style.color = 'var(--cream-soft)';
           }}
         >
-          <Plus size={12} />
+          <Plus size={15} strokeWidth={2.6} />
           add your own
         </button>
       </div>

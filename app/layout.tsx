@@ -1,27 +1,19 @@
 import type { Metadata, Viewport } from 'next';
-import { Cormorant_Garamond, Forum, Lora } from 'next/font/google';
+import { Fredoka, Nunito } from 'next/font/google';
 import './globals.css';
 
-const cormorant = Cormorant_Garamond({
-  variable: '--font-cormorant',
+const fredoka = Fredoka({
+  variable: '--font-fredoka',
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
-  style: ['normal', 'italic'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
 });
 
-const lora = Lora({
-  variable: '--font-lora',
+const nunito = Nunito({
+  variable: '--font-nunito',
   subsets: ['latin'],
-  weight: ['400', '500'],
+  weight: ['400', '500', '600', '700', '800'],
   style: ['normal', 'italic'],
-  display: 'swap',
-});
-
-const forum = Forum({
-  variable: '--font-forum',
-  subsets: ['latin'],
-  weight: '400',
   display: 'swap',
 });
 
@@ -41,7 +33,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
-  themeColor: '#FDF6E8',
+  themeColor: '#FFE3F1',
 };
 
 export default function RootLayout({
@@ -52,7 +44,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${lora.variable} ${forum.variable}`}
+      className={`${fredoka.variable} ${nunito.variable}`}
     >
       <body>{children}</body>
     </html>
